@@ -11,7 +11,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
         const savedProduct = await newProduct.save();
         res.status(200).json(savedProduct);
     } catch (err) {
-        res.status.apply(500).json(err);
+        res.status(500).json(err);
     }
 })
 
@@ -56,13 +56,17 @@ router.get("/find/:id", async (req, res) => {
 // GET ALL Product
 // Everyone can see this, both admin and user, no need to verify.
 router.get("/", async (req, res) => {
+    // get current product by date and time.
     const qNew = req.query.new;
+
+    // get product by category.
     const qCategory = req.query.category;
+
     try {
         let products;
 
         if (qNew) {
-            products = await Product.find().sort({ createdAt: -1 }).limit(1);
+            products = await Product.find().sort({ createdAt: -1}).limit(1);
         }   else if (qCategory) {
             products = await Product.find({
                 categories: {
@@ -75,7 +79,7 @@ router.get("/", async (req, res) => {
 
 
         res.status(200).json(products);
-    } catch (err) {
+    }   catch (err) {
         res.status(500).json(err);
     }
 });

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { popularProducts }  from "../data";
+//import { popularProducts }  from "../data";
 import Product from "./Product";
 import axios from "axios";
 
@@ -15,13 +15,13 @@ const Container = styled.div`
 function Products({cat, filters, sort}) {
 
   const [products, setProducts] = useState([]);
-  const [filterProducts, setFilterProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() =>{
     const getProducts = async () => {
       try {
         const res = await axios.get( cat 
-          ? `http://localhost:5000/api/products?category=${cat}`
+          ? `http://localhost:5000/api/products?categories=${cat}`
           : "http://localhost:5000/api/products"
         );
        setProducts(res.data);
@@ -34,7 +34,7 @@ function Products({cat, filters, sort}) {
 
   // The useEffect below set the filterProducts if there is a category e.g coat etc.
   useEffect(() => {
-    cat && setFilterProducts(
+    cat && setFilteredProducts(
       products.filter((item) =>
         Object.entries(filters).every(([key, value]) =>
           item[key].includes(value)
@@ -43,19 +43,19 @@ function Products({cat, filters, sort}) {
     );
   },[products, cat, filters]);
 
-  console.log(filterProducts);
+  console.log(filteredProducts);
 
   useEffect(() => {
     if (sort === "newest") {
-      setFilterProducts((prev) => 
+      setFilteredProducts((prev) => 
         [...prev].sort((a,b) => a.createdAt - b.createdAt)
       );
     } else if (sort === "asc") {
-      setFilterProducts((prev) => 
+      setFilteredProducts((prev) => 
         [...prev].sort((a,b) => a.price  - b.price)
       );
     } else {
-      setFilterProducts((prev) => 
+      setFilteredProducts((prev) => 
         [...prev].sort((a,b) => b.price  - a.price)
       );
     }
@@ -64,7 +64,7 @@ function Products({cat, filters, sort}) {
   return (
     <Container>
         {cat 
-        ? filterProducts.map((item) => (
+        ? filteredProducts.map((item) => (
             <Product item={item} key={item.id}/>)) 
         : products
             .slice(0,2)

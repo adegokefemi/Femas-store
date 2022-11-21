@@ -7,6 +7,7 @@ const authRoute = require("./routes/auth");
 const productRoute = require("./routes/Product");
 const cartRoute = require("./routes/Cart");
 const orderRoute = require("./routes/Order");
+const stripeRoute = require("./routes/Stripe")
 const cors = require("cors");
 
 dotenv.config();
@@ -19,7 +20,7 @@ mongoose.connect(
     console.log(err);
 });
 
-// To pass json file from postman.
+// To take Json object into body of the json file and test from Postman.
 app.use(express.json());
 
 // this is used to solved the cors port issue.
@@ -30,6 +31,7 @@ app.use("/api/users", userRoute);
 app.use("/api/products", productRoute);
 app.use("/api/Carts", cartRoute);
 app.use("/api/order", orderRoute);
+app.use("/api/payment", stripeRoute);
 
 
 app.listen(process.env.PORT || 5000, () => {

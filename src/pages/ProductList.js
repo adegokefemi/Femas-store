@@ -40,19 +40,22 @@ const Option = styled.option`
 function ProductList() {
     const location = useLocation();
     const cat = (location.pathname.split("/")[2]);
+
     const [filters, setFilters] = useState({});
     const [sort, setSort] = useState("newest");
 
     // console.log(filters);
 
     const handleFilters = (e) => {
-        const value = e.target.value;
+        // const value = e.target.value;
         setFilters({
             // spread the initial value filters and update it with the new value.
             ...filters,
-            [e.target.value]: value,
+            [e.target.name]: e.target.value,
         });
     };
+
+     console.log(filters);
 
     return (
     <Container>

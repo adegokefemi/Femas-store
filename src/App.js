@@ -32,7 +32,7 @@ const Wrapper = styled.div`
 
 
 function App() {
-// const  user = true;
+//  const  user = true;
   return (
     <Router>
       <Container>
@@ -42,7 +42,7 @@ function App() {
                 <Link to="/">Home</Link><br></br>
             </li>
             <li>
-                <Link to="/products/category">ProductList</Link><br></br>
+                <Link to="/products/categories">ProductList</Link><br></br>
             </li>
             <li>
                <Link to="/product/:id">Product</Link>
@@ -51,9 +51,10 @@ function App() {
         </ul>
         <Routes>
           <Route exact path="/" element={<Home />}></Route>
-          <Route path="/products/category" element={ <ProductList/>}></Route>
+          <Route path="/products/categories" element={ <ProductList/>}></Route>
           <Route path="/products/:id" element={<Product/>}></Route>
-          <Route path="/login" element={<Login/>}></Route>
+          <Route path="/login" 
+          element={<Login/>}></Route>
           <Route path="/register" element={ <Register/> }></Route>
           <Route path="/cart" element={<Cart/>}></Route>
         </Routes>

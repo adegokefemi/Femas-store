@@ -13,7 +13,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res)=> {
     }
 
     try {
-        const updatedUser = await User.findByIdAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate( 
             req.params.id,
             {
                 // This is used to set the new request in the body with new: true, added.
@@ -22,7 +22,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res)=> {
             {new: true }
         );
         res.status(200).json(updatedUser); 
-    } catch (err) {
+    }   catch (err) {
         res.status(500).json(err);
     }
 });
@@ -32,7 +32,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res)=>{
     try {
         await User.findOneAndDelete(req.params.id)
         res.status(200).json("User has been deleted...")
-    } catch (err) {
+    }   catch (err) {
         res.status(500).json(err)
     }
 });
@@ -43,7 +43,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
         const user = await User.findById(req.params.id);
         const { password, ...others } = user._doc;
         res.status(200).json(others);
-    } catch (err) {
+    }   catch (err) {
         res.status(500).json(err);
     }
 });
